@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.producto_model import Base
 
+#configura el logger para mostrar mensajes a partir de nivel INFO en adelante.
 logging.basicConfig(level=logging.INFO)
 
 # Ruta de la base de datos SQLite
