@@ -19,3 +19,5 @@ class UniService:
 
     def eliminar_uni(self, uni_id: int):
         return self.repository.delete_uni(uni_id)
+
+
