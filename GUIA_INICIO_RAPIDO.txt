@@ -1,0 +1,246 @@
+🚀 GUÍA DE INICIO RÁPIDO - API DANA FRONTEND
+=============================================
+
+## 📦 Lo que se ha generado
+
+✅ Frontend completo en HTML, CSS y JavaScript puro (sin frameworks)
+✅ Autenticación JWT con localStorage
+✅ CRUD de productos funcional
+✅ Diseño responsive y moderno
+✅ Alertas y validaciones
+✅ Código modular y comentado
+
+---
+
+## 📁 Estructura Generada
+
+frontend/
+├── index.html                 # Página de LOGIN
+├── register.html              # Página de REGISTRO
+├── dashboard.html             # Dashboard principal
+├── productos.html             # Gestión CRUD de productos
+│
+├── css/
+│   └── styles.css            # Estilos globales (responsive)
+│
+├── js/
+│   ├── auth.js               # Manejo de JWT y localStorage
+│   ├── api.js                # Wrapper de fetch con headers
+│   ├── utils.js              # Funciones auxiliares
+│   ├── login.js              # Lógica página login
+│   ├── register.js           # Lógica página registro
+│   └── productos.js          # CRUD de productos
+│
+└── README.md                  # Documentación completa
+
+---
+
+## 🔌 PASO 1: Asegurate que la API esté corriendo
+
+Desde PowerShell en la carpeta API_DANA:
+
+```powershell
+cd C:\Users\Aux2_tics\Documents\brayan\DEV\API_DANA
+python main.py
+```
+
+Deberías ver:
+```
+ * Running on http://127.0.0.1:5000
+ * Debugger PIN: ...
+```
+
+---
+
+## 🌐 PASO 2: Abrir el frontend
+
+### Opción A: Directamente en el navegador
+Abre este archivo:
+```
+C:\Users\Aux2_tics\Documents\brayan\DEV\API_DANA\frontend\index.html
+```
+
+### Opción B: Con servidor local (recomendado)
+Desde PowerShell en la carpeta frontend:
+
+```powershell
+cd C:\Users\Aux2_tics\Documents\brayan\DEV\API_DANA\frontend
+python -m http.server 8000
+```
+
+Luego abre en el navegador:
+```
+http://localhost:8000
+```
+
+---
+
+## 📝 PASO 3: Prueba el flujo completo
+
+### 1. REGISTRO
+- Ve a "Regístrate aquí"
+- Ingresa:
+  - Usuario: admin
+  - Contraseña: 12345
+  - Confirmar contraseña: 12345
+- Click en "Registrarse"
+
+### 2. LOGIN
+- Ingresa las mismas credenciales
+- Click en "Entrar"
+
+### 3. DASHBOARD
+- Verás un mensaje de bienvenida
+- Total de productos (debe mostrarse)
+
+### 4. PRODUCTOS
+- Click en "Productos" en el menú
+- Click en "+ Nuevo Producto"
+- Crea un producto:
+  - Código: P001
+  - Nombre: Mouse inalámbrico
+  - Precio: 95000
+- Click en "Guardar"
+
+### 5. CRUD
+- **Ver**: Los productos se cargan automáticamente
+- **Editar**: Click en "Editar" en la fila del producto
+- **Eliminar**: Click en "Eliminar" (con confirmación)
+
+---
+
+## 🔒 Cómo funciona la autenticación
+
+1. LOGIN → Se envía usuario y contraseña → API retorna JWT
+2. JWT se guarda en localStorage con clave: `apiDanaToken`
+3. En CADA REQUEST se envía el header:
+   ```
+   Authorization: Bearer <token>
+   ```
+4. Si token expira (401), el frontend redirige al login automáticamente
+5. LOGOUT → Se elimina el token de localStorage
+
+---
+
+## 📋 Endpoints que consume
+
+| Endpoint | Método | Descripción |
+|----------|--------|-------------|
+| /users/register | POST | Registrar usuario |
+| /users/login | POST | Login (obtiene JWT) |
+| /productos | GET | Listar todos los productos |
+| /productos | POST | Crear nuevo producto |
+| /productos/<id> | PUT | Actualizar producto |
+| /productos/<id> | DELETE | Eliminar producto |
+
+---
+
+## 💾 Almacenamiento Local
+
+El frontend guarda en localStorage:
+- `apiDanaToken` → Token JWT
+- `apiDanaUser` → Datos del usuario (username)
+
+Esto permite que la sesión persista entre recargas de página.
+
+---
+
+## 🎨 Características de la Interfaz
+
+✅ Diseño responsive (móvil, tablet, desktop)
+✅ Alertas flotantes de éxito/error
+✅ Modal para crear/editar productos
+✅ Validaciones en cliente antes de enviar
+✅ Tabla dinamica con lista de productos
+✅ Botones de acción (Editar, Eliminar)
+✅ Navbar con opciones de navegación
+✅ Logout con confirmación implícita
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+- HTML5 (estructura semántica)
+- CSS3 (responsive, grid, flexbox, animaciones)
+- JavaScript ES6+ (async/await, fetch, módulos)
+- localStorage (persistencia de datos)
+
+SIN frameworks, SIN librerías externas, SIN compiladores
+
+---
+
+## 📞 Troubleshooting
+
+### "Error: Cannot connect to API"
+→ Verifica que `python main.py` esté corriendo
+→ Comprueba que el puerto 5000 esté disponible
+
+### "401 Unauthorized"
+→ Tu token ha expirado, haz login nuevamente
+→ O el token no se está enviando correctamente (revisa F12)
+
+### "CORS error"
+→ Verifica que CORS esté habilitado en main.py
+→ Debe tener: `CORS(app)`
+
+### "Las contraseñas no coinciden"
+→ Escribe ambas contraseñas idénticas
+→ El campo se destaca en rojo si hay error
+
+---
+
+## ✅ Checklist Final
+
+- [ ] API corriendo en http://127.0.0.1:5000
+- [ ] Frontend abierto en navegador
+- [ ] Usuario registrado exitosamente
+- [ ] Login funciona y redirige a dashboard
+- [ ] Se ve el total de productos en dashboard
+- [ ] Se pueden crear productos desde "Productos"
+- [ ] Se pueden editar productos
+- [ ] Se pueden eliminar productos
+- [ ] Logout funciona correctamente
+- [ ] Sesión persiste al recargar (localStorage)
+
+---
+
+## 📚 Archivos clave explicados
+
+### auth.js
+Módulo para manejar el JWT:
+- setToken() → Guardar token
+- getToken() → Obtener token
+- isAuthenticated() → Verificar si está logueado
+- logout() → Eliminar token
+- getAuthHeader() → Obtener header de autorización
+
+### api.js
+Wrapper de fetch con soporte JWT:
+- register(username, password)
+- login(username, password)
+- getProductos()
+- createProducto(codigo, producto, precio)
+- updateProducto(id, data)
+- deleteProducto(id)
+
+### utils.js
+Funciones auxiliares:
+- showAlert() → Mostrar alertas
+- showModal() → Abrir modal
+- hideModal() → Cerrar modal
+- Validaciones (isNotEmpty, isPositiveNumber, etc)
+- clearForm() → Limpiar formulario
+- formatCurrency() → Formatear moneda
+
+### productos.js
+Lógica CRUD:
+- loadProductos() → Cargar lista
+- editProducto() → Abrir modal para editar
+- handleSaveProduct() → Crear/Actualizar
+- deleteProducto() → Eliminar con confirmación
+
+---
+
+¡Listo! El frontend está 100% funcional y listo para usar. 🎉
+
+Para dudas o problemas, revisa la consola del navegador (F12) para ver errores detallados.

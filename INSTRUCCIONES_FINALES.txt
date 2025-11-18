@@ -1,0 +1,215 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                      EJECUCIÓN FINAL - API DANA                           ║
+║                                                                            ║
+║        Al ejecutar main.py, el frontend se cargará automáticamente        ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+🚀 INSTRUCCIONES PARA EJECUTAR
+═════════════════════════════════════════════════════════════════════════════
+
+PASO 1: Abre PowerShell
+───────────────────────
+Navega a la carpeta del proyecto:
+    cd C:\Users\Aux2_tics\Documents\brayan\DEV\API_DANA
+
+
+PASO 2: Ejecuta la API
+──────────────────────
+    python main.py
+
+Deberías ver algo como:
+    ══════════════════════════════════════════
+    🚀 API DANA - Servidor iniciado
+    ══════════════════════════════════════════
+    📡 API disponible en:       http://127.0.0.1:5000/api
+    🌐 Frontend disponible en:  http://127.0.0.1:5000
+    📚 Documentación:           http://127.0.0.1:5000/api/docs
+    ══════════════════════════════════════════
+
+
+PASO 3: Abre en el navegador
+────────────────────────────
+Abre tu navegador favorito (Chrome, Firefox, Edge, etc.) y ve a:
+    http://127.0.0.1:5000
+
+Automáticamente serás redirigido al login.
+
+
+PASO 4: Ingresa las credenciales
+─────────────────────────────────
+Usuario: admin
+Contraseña: 12345
+
+(O crea una nueva cuenta haciendo click en "Regístrate aquí")
+
+
+PASO 5: Disfruta del dashboard
+──────────────────────────────
+Una vez logueado, tendrás acceso a:
+  • Dashboard con estadísticas
+  • Gestión completa de productos
+  • Logout
+
+
+✅ CREDENCIALES DE DEMOSTRACIÓN
+═════════════════════════════════════════════════════════════════════════════
+
+Usuario:      admin
+Contraseña:   12345
+
+Si quieres crear un nuevo usuario:
+  1. Click en "Regístrate aquí"
+  2. Ingresa los datos
+  3. Click en "Registrarse"
+  4. Regresa al login e ingresa
+
+
+📂 ESTRUCTURA FINAL DEL PROYECTO
+═════════════════════════════════════════════════════════════════════════════
+
+API_DANA/
+├── main.py                              ← Ejecutar esto (python main.py)
+├── config/
+├── controllers/
+├── models/
+├── repositories/
+├── services/
+└── frontend/                            ← Todo se sirve desde aquí
+    ├── index.html                       ← Página de login (inicio)
+    ├── register.html
+    ├── dashboard.html
+    ├── productos.html
+    ├── css/styles.css
+    └── js/
+        ├── auth.js
+        ├── api.js
+        ├── utils.js
+        ├── login.js
+        ├── register.js
+        └── productos.js
+
+
+🔄 FLUJO DE LA APLICACIÓN
+═════════════════════════════════════════════════════════════════════════════
+
+1. Ejecutas: python main.py
+   └─> La API Flask inicia en http://127.0.0.1:5000
+   
+2. Abres navegador: http://127.0.0.1:5000
+   └─> Flask sirve el archivo index.html (login)
+   
+3. Haces login
+   └─> Se envía petición a /users/login
+   └─> API devuelve JWT
+   └─> Frontend lo guarda en localStorage
+   
+4. Eres redirigido a dashboard.html
+   └─> Se cargan productos desde /productos
+   
+5. Administras productos
+   └─> POST /productos (crear)
+   └─> PUT /productos/<id> (editar)
+   └─> DELETE /productos/<id> (eliminar)
+   
+6. Haces logout
+   └─> Se elimina JWT de localStorage
+   └─> Redirige a index.html (login)
+
+
+🎯 CARACTERÍSTICAS DEL FLUJO
+═════════════════════════════════════════════════════════════════════════════
+
+✓ Todo está integrado en un solo servidor Flask
+✓ El frontend se sirve desde la misma API
+✓ No requiere servidor web separado
+✓ No requiere npm o instalación de dependencias
+✓ Funciona completamente desde http://127.0.0.1:5000
+✓ La sesión se mantiene en localStorage
+
+
+📊 PETICIONES HTTP AUTOMÁTICAS
+═════════════════════════════════════════════════════════════════════════════
+
+Al hacer login:
+  POST /users/login
+  {"username": "admin", "password": "12345"}
+  
+  Respuesta:
+  {"access_token": "eyJ0eXAi..."}
+
+
+Al ver productos:
+  GET /productos
+  Header: Authorization: Bearer eyJ0eXAi...
+  
+  Respuesta:
+  [
+    {"id": 1, "codigo": "P001", "producto": "Mouse", "precio": 95000},
+    ...
+  ]
+
+
+Al crear producto:
+  POST /productos
+  Header: Authorization: Bearer eyJ0eXAi...
+  {"codigo": "P001", "producto": "Mouse", "precio": 95000}
+
+
+🔐 SEGURIDAD
+═════════════════════════════════════════════════════════════════════════════
+
+✓ Token JWT guardado en localStorage
+✓ Enviado en header Authorization en cada request
+✓ Validación de token en backend
+✓ Si expira, redirige al login automáticamente
+
+
+💻 TECNOLOGÍA
+═════════════════════════════════════════════════════════════════════════════
+
+Backend:   Flask (Python)
+Frontend:  HTML + CSS + JavaScript puro
+BD:        SQLite
+Auth:      JWT (JSON Web Token)
+Servidor:  Integrado en Flask
+
+
+✨ PRÓXIMOS PASOS
+═════════════════════════════════════════════════════════════════════════════
+
+1. Ejecuta:     python main.py
+2. Abre:        http://127.0.0.1:5000
+3. Login:       admin / 12345
+4. Prueba:      Crea, edita y elimina productos
+5. Experimenta: Modifica el código CSS/JS según necesites
+
+
+📞 TROUBLESHOOTING
+═════════════════════════════════════════════════════════════════════════════
+
+"Error: Port 5000 already in use"
+→ Otra aplicación usa el puerto 5000
+→ Intenta en otra ventana o cambia el puerto en main.py
+
+"No puedo cargar el frontend"
+→ Verifica que la API esté corriendo (debería ver el logo)
+→ Abre F12 para ver errores en consola
+
+"CORS error"
+→ Ya está configurado en main.py
+→ Si aun así hay errores, verifica que CORS esté habilitado
+
+"Token inválido"
+→ Tu token expiró, haz login nuevamente
+→ O borra localStorage y recarga
+
+
+═════════════════════════════════════════════════════════════════════════════
+
+                      ¡LISTO PARA EJECUTAR!
+
+               Simplemente: python main.py
+               Luego abre: http://127.0.0.1:5000
+
+═════════════════════════════════════════════════════════════════════════════

@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String
-from config.conexion import Base
+from sqlalchemy.orm import declarative_base
 import logging
+
+# Crear Base local para evitar referencias circulares
+Base = declarative_base()
 
 logger = logging.getLogger(__name__)
 

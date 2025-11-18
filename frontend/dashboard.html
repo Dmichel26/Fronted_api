@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API DANA - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">API DANA</div>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="productos.html">Productos</a>
+                <button class="btn-logout" id="logoutBtn">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Bienvenido a API DANA</h1>
+            <p>Sistema de gestión de tienda en línea</p>
+            <p style="margin-top: 15px; font-size: 14px;">
+                Usuario: <strong id="usernameDisplay">-</strong>
+            </p>
+        </div>
+
+        <div class="dashboard-header" style="text-align: center;">
+            <h3>¿Qué deseas hacer?</h3>
+            <div class="btn-group" style="max-width: 400px; margin: 20px auto; display: flex; flex-direction: column; gap: 15px;">
+                <a href="productos.html" class="btn btn-primary">Ver Productos</a>
+                <a href="productos.html#nuevo" class="btn btn-success">Crear Nuevo Producto</a>
+            </div>
+        </div>
+
+        <div id="stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
+            <div class="dashboard-header" style="text-align: center;">
+                <h3 style="color: #0066cc;">Total de Productos</h3>
+                <p style="font-size: 32px; font-weight: bold; color: #0066cc;" id="totalProducts">-</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 API DANA - Tienda en línea. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        // Verificar autenticación
+        Utils.checkAuth();
+
+        // Mostrar usuario
+        const user = Auth.getUser();
+        if (user && user.username) {
+            document.getElementById('usernameDisplay').textContent = user.username;
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            Auth.logout();
+            window.location.href = 'index.html';
+        });
+
+        // Cargar estadísticas
+        async function loadStats() {
+            try {
+                const productos = await API.getProductos();
+                document.getElementById('totalProducts').textContent = Array.isArray(productos) ? productos.length : 0;
+            } catch (error) {
+                console.error('Error al cargar estadísticas:', error);
+            }
+        }
+
+        loadStats();
+    </script>
+</body>
+</html>
