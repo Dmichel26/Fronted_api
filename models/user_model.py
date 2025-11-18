@@ -1,13 +1,15 @@
-from models.db import db
+from sqlalchemy import Column, Integer, String
+from config.conexion import Base
 import logging
 
 logger = logging.getLogger(__name__)
 
-class User(db.Model):
+class User(Base):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(80), unique=True, nullable=False)
+    password = Column(String(255), nullable=False)
 
     def __repr__(self):
         logger.info(f'Representación de usuario solicitada: {self.username}')
